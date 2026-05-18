@@ -1,6 +1,6 @@
 import prisma from "../config/prisma";
 
-export const familyMemberController = async(req,res) => {
+export const getFamilyMembers = async(req,res) => {
     try {
         const userId = req.user.id;
 
