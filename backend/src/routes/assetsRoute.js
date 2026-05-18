@@ -1,10 +1,10 @@
 import {Router} from "express"
-import { getDashboardOverview } from "../controllers/dashboardController";
 import { authMiddleware } from "../middleware/authMiddleware";
+import { createAsset } from "../controllers/assetsController";
 
 const router = Router();
 
-router.get("/cards", authMiddleware,getDashboardOverview)
+router.post("/create", authMiddleware, createAsset)
 
 export default router
 
