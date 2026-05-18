@@ -43,3 +43,38 @@ export const createAsset = async(req,res) => {
         }
 }
 
+export const getAsset = async(req,res) => {
+    try {
+        const userId = req.user.id;
+
+        const assets = await prisma.asset.findMany({
+            where: {
+                familyMember: {
+                    userId: userId
+                },
+            },
+            include: {
+                familyMember: {
+                    select: {
+                        id: true,
+                        fullName: true,
+                        relation: true,
+                    }
+                }
+            },
+            orderBy: {
+                createdAt: "desc"
+            }
+        })
+        return res.status(200).json({
+            message: "Assets fetched successfully",
+            data: assets,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Server error",
+        });
+    }
+}
+
