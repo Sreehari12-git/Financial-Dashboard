@@ -14,4 +14,53 @@ model User {
   email      String   @unique
   password   String
   createdAt  DateTime @default(now())
+
+  familyMembers FamilyMember[]
+}
+
+model FamilyMember {
+  id           Int      @id @default(autoincrement())
+  fullName     String
+  relation     String
+  age          Int?
+  occupation   String?
+  annualIncome Float?
+
+  userId       Int
+  user         User @relation(fields: [userId], references: [id])
+
+  createdAt    DateTime @default(now())
+
+  assets   Asset[]
+  liabilities Liability[]
+}
+
+
+model Asset {
+  id             Int      @id @default(autoincrement())
+  assetName      String
+  category       String
+  purchaseValue  Float
+  currentValue   Float
+  annualYield    Float?
+  purchaseDate   DateTime?
+
+  familyMemberId Int
+  familyMember   FamilyMember @relation(fields: [familyMemberId], references: [id])
+
+  createdAt      DateTime @default(now())
+}
+
+model Liability {
+  id               Int      @id @default(autoincrement())
+  liabilityName    String
+  category         String
+  totalAmount      Float
+  remainingAmount  Float
+  monthlyPayment   Float?
+
+  familyMemberId   Int
+  familyMember     FamilyMember @relation(fields: [familyMemberId], references: [id])
+
+  createdAt        DateTime @default(now())
 }
