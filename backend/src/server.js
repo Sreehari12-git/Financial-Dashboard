@@ -5,13 +5,17 @@ import familyMembersRoutes from "./routes/familyMemberRoutes.js"
 import dashboardRoute from "./routes/dashboardRoute.js"
 import assetsRoute from "./routes/assetsRoute.js"
 import liabilityRoute from "./routes/liabilityRoute.js"
-
+import cors from "cors"
 dotenv.config();
+
 const app = express()
 
-app.get("/",(req,res) => {
-    res.send("Login successful");
-})
+app.use(cors({
+    origin: "http://localhost:2000",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
+}))
 
 const PORT = process.env.PORT
 
