@@ -78,3 +78,44 @@ export const getAsset = async(req,res) => {
     }
 }
 
+export const getAssetSummary  = async(req,res) => {
+    try {
+        const userId = req.user.id;
+
+        const assets = await prisma.asset.findMany({
+            where: {
+                familyMember: {
+                    userId: userId,
+                },
+            },
+            select: {
+                category: true,
+                currentValue: true,
+            }
+        })
+
+        const summary = assets.reduce((acc,asset) => {
+            const category = asset.category;
+
+            if(!acc[category]) {
+                acc[category] = 0;
+            }
+
+            acc[category] += asset.currentValue || 0;
+
+            return acc;
+        }, {});
+
+        return res.status(200).json({
+            message: "Asset summary fetched successfully",
+            data: summary
+        })
+    }
+    catch(error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Server error"
+        })
+    }
+}
+
