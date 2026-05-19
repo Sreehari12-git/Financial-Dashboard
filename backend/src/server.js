@@ -4,7 +4,7 @@ import authRoutes from "./routes/authRoutes.js"
 import familyMembersRoutes from "./routes/familyMemberRoutes.js"
 import dashboardRoute from "./routes/dashboardRoute.js"
 import assetsRoute from "./routes/assetsRoute.js"
-
+import liabilityRoute from "./routes/liabilityRoute.js"
 
 dotenv.config();
 const app = express()
@@ -21,7 +21,7 @@ app.use("/", authRoutes)
 app.use("/family-members", familyMembersRoutes)
 app.use('/dashboard', dashboardRoute )
 app.use("/assets", assetsRoute)
-
+app.use("/liability", liabilityRoute)
 
 app.listen(PORT, () => {
     console.log(`Listening to port {PORT}`);
