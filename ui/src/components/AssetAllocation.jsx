@@ -30,9 +30,17 @@ const chartData = {
   ]
 };
 
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false
+  };
+
 return(
-  <div className="w-[400px]">
-    <Pie data={chartData}/>
+  <div className="w-[300px] h-[300px]">
+    <Pie data={chartData} options={options}/>
   </div>
 )
 }
+
+export default AssetAllocation
+

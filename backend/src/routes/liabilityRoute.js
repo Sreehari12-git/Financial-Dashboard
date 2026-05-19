@@ -9,3 +9,4 @@ router.post("/create", authMiddleware, createLiability)
 
 export default router
 
+

@@ -1,0 +1,6 @@
+# frontend
+/ui/node_modules
+
+#backend
+/backend/.env
+/backend/generated/prisma
