@@ -119,3 +119,33 @@ export const getAssetSummary  = async(req,res) => {
     }
 }
 
+
+export const getAssetAllocation = async (req, res) => {
+    const groupedAssets = await prisma.asset.groupBy({
+        by: ["category"],
+
+        _sum : {
+            currentValue: true
+        }
+    })
+    let total = 0;
+
+    groupedAssets.forEach(asset => {
+        total += asset._sum.currentValue
+    })
+
+    const result = groupedAssets.map(asset => {
+        const value = asset._sum.currentValue;
+
+        const percentage = (value / total) * 100;
+
+        return {
+            category : asset.category,
+            totalValue: value,
+            percentage: percentage.toFixed(1)
+        }
+    })
+
+    res.json(result);
+};
+
