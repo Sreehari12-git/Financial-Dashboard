@@ -35,3 +35,45 @@ export const getAllLiabilities = async(req,res) => {
     }
 }
 
+export const createLiability = async(req,res) => {
+    try {
+        const userId = req.user.id;
+
+        const {liabilityName,category,totalAmount,remainingAmount,monthlyPayment,familyMemberId} = req.body;
+
+        const member = await prisma.familyMember.findFirst({
+            where: {
+                id: Number(familyMemberId),
+                userId: userId
+            }
+        })
+
+        if(!member) {
+            return res.status(404).json({
+                message: "Family member not found",
+            })
+        }
+
+        const liability = await prisma.liability.create({
+            data: {
+                liabilityName,
+                category,
+                totalAmount: Number(totalAmount),
+                remainingAmount: Number(remainingAmount),
+                monthlyPayment: monthlyPayment ? Number(monthlyPayment) : null,
+                familyMemberId: Number(familyMemberId)
+            }
+        })
+
+        return res.status(201).json({
+            message: "Liability created successfully",
+            data: liability,
+        })
+    } catch(error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Server error"
+        })
+    }
+}
+
