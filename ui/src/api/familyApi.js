@@ -6,3 +6,8 @@ export const getFamilyTree = async() => {
     return response.data;
 }
 
+export const createMember = async(data) => {
+    const response = await api.post("/family-members/create", data);
+    return response.data
+}
+
