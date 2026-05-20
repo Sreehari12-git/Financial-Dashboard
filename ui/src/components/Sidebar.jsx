@@ -5,6 +5,7 @@ const Sidebar = () => {
     const navigate = useNavigate();
 
     const logout = () => {
+      localStorage.clear();
         navigate("/");
     }
 

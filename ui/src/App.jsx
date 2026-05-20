@@ -7,6 +7,7 @@ import Sidebar from './components/Sidebar'
 import WealthAssets from './page/WealthAssets'
 import Tax from './page/Tax'
 import Register from './components/Register'
+import { ProtectedRoute } from './components/ProtectedRoute'
 
 function App() {
   return (
@@ -14,10 +15,12 @@ function App() {
     <Routes>
       <Route path='/' element={<Login/>}/>
       <Route path='/register' element={<Register/>}/>
+      <Route element={<ProtectedRoute/>}>
       <Route element = {<Sidebar/>}>
         <Route path='/family-tree' element={<FamilyTree/>}/>
         <Route path='/wealth-assets' element={<WealthAssets/>}/>
         <Route path='/tax' element={<Tax/>}/>
+      </Route>
       </Route>
     </Routes>
     </BrowserRouter>
