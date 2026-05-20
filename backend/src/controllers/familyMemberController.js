@@ -67,3 +67,59 @@ export const getFamilyMemberById = async(req,res) => {
     }
 }
 
+export const createFamilyMember = async(req,res) =>{
+    try {
+       const {fullName,relation,age,occupation,annualIncome,relatedToId} = req.body; 
+
+       const userId = req.user.id;
+
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userId
+            }
+        })
+
+        if(!user) {
+            res.status(400).json({
+                message: "User does not exist"
+            })
+        }
+
+        if(relatedToId) {
+            const parentMember = await prisma.familyMember.findUnique({
+                where: {
+                    id: relatedToId
+                }
+            })
+
+            if(!parentMember) {
+                return res.status(400).json({
+                    message: "Parent family remember not found"
+                })
+            }
+
+            const newMember = await prisma.familyMember.create({
+                data: {
+                    fullName,
+                    relation,
+                    age: age? Number(age):null,
+                    occupation,
+                    annualIncome,
+                    relatedToId,
+                    userId
+                }
+            })
+
+            return res.status(201).json({
+                message: "Family created successfully",
+                data: newMember
+            });
+         } 
+    } catch(error) {
+        console.log(error);
+        return res.status(500),json({
+            message: "Server errror"
+        })
+    }
+}
+
