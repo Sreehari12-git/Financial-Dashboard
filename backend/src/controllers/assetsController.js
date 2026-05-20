@@ -121,20 +121,30 @@ export const getAssetSummary  = async(req,res) => {
 
 
 export const getAssetAllocation = async (req, res) => {
-    const groupedAssets = await prisma.asset.groupBy({
-        by: ["category"],
 
-        _sum : {
-            currentValue: true
-        }
-    })
-    let total = 0;
+    try {
+        const userId = req.user.id;
 
-    groupedAssets.forEach(asset => {
+        const groupedAssets = await prisma.asset.groupBy({
+            by: ["category"],
+
+            where: {
+                familyMember: {
+                    userId: userId
+                }
+            },
+
+            _sum : {
+                currentValue: true
+            }
+        })
+        let total = 0;
+
+        groupedAssets.forEach(asset => {
         total += asset._sum.currentValue
-    })
+        })
 
-    const result = groupedAssets.map(asset => {
+        const result = groupedAssets.map(asset => {
         const value = asset._sum.currentValue;
 
         const percentage = (value / total) * 100;
@@ -147,5 +157,12 @@ export const getAssetAllocation = async (req, res) => {
     })
 
     res.json(result);
+    } catch(error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Server error"
+        })
+    }
 };
+
 

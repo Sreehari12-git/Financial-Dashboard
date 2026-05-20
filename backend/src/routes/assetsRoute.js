@@ -7,7 +7,7 @@ const router = Router();
 router.post("/create", authMiddleware, createAsset);
 router.get("/all", authMiddleware, getAsset);
 router.get("/summary", authMiddleware, getAssetSummary);
-router.get("/allocation", getAssetAllocation);
+router.get("/allocation", authMiddleware,getAssetAllocation);
 
 export default router
 
