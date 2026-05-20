@@ -4,6 +4,12 @@ export const getFamilyTree = async (req, res) => {
 
   const userId = req.user.id;
 
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId
+    }
+  });
+
   const members = await prisma.familyMember.findMany({
     where: {
       userId
@@ -14,7 +20,22 @@ export const getFamilyTree = async (req, res) => {
       relation: true,
       relatedToId: true
     }
-
   });
-  res.json(members);
+
+  const buildTree = (parentId = null) => {
+    return members.filter(member => member.relatedToId === parentId).map(member => ({
+      user: member.fullName,
+      relation: member.relation,
+      familyMember: buildTree(member.id)
+    }))
+  }
+
+  const familyTree = {
+    user: user.fullName,
+    userId: user.id,
+    familyMember: buildTree(null)
+  };
+
+  res.json(familyTree);
 };
+
