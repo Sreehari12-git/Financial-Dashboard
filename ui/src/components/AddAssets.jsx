@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createAssets } from "../api/assetsApi";
 import "./AddAssets.css";
 
-function AddAssets({ onClose,  qonSuccess }) {
+function AddAssets({ onClose,  onSuccess }) {
 
   const [form, setForm] = useState({
     assetName: "",
