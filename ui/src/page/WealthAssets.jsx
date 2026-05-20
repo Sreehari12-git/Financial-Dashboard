@@ -5,9 +5,21 @@ import LiabilitiesList from "../components/LiabilitiesList"
 const WealthAssets = () => {
     return (
         <>
-        <AssetLedger/>
-        <LiabilitiesList/>
-        <AssetAllocation/>
+
+<div style={{ display: "flex", alignItems: "flex-start", gap: "24px" }}>
+  
+  {/* Left column — stacked tables */}
+  <div style={{ display: "flex", flexDirection: "column" }}>
+    <AssetLedger />
+    <LiabilitiesList />
+  </div>
+
+  {/* Right column — chart centered vertically between both tables */}
+  <div style={{ display: "flex", alignItems: "center", alignSelf: "stretch" }}>
+    <AssetAllocation />
+  </div>
+
+</div>
         </>
 
     )

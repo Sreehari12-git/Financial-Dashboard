@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getAllLiabilities } from "../api/liabilities";
+import "./LiabilitiesList.css";
 
 function LiabilitiesList() {
-
   const [liabilities, setLiabilities] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -11,71 +11,50 @@ function LiabilitiesList() {
   }, []);
 
   async function fetchLiabilities() {
-
     try {
-
       const response = await getAllLiabilities();
-
       setLiabilities(response.data);
-
     } catch (error) {
-
       console.log(error);
-
     } finally {
-
       setLoading(false);
-
     }
   }
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p className="liabilities-empty">Loading...</p>;
   }
 
   return (
-    <div>
+    <div className="liabilities-container">
+      <div className="liabilities-header">
+        <h2>All Liabilities</h2>
+      </div>
 
-      <h2>All Liabilities</h2>
+      <div className="liabilities-table-head">
+        <p>Name</p>
+        <p>Category</p>
+        <p>Total</p>
+        <p>Remaining</p>
+        <p>Member</p>
+      </div>
 
       {liabilities.length === 0 ? (
-        <p>No liabilities found</p>
+        <p className="liabilities-empty">No liabilities found</p>
       ) : (
         liabilities.map((liability) => (
-          <div
-            key={liability.id}
-            style={{
-              border: "1px solid gray",
-              padding: "10px",
-              marginBottom: "10px",
-            }}
-          >
-
+          <div className="liabilities-row" key={liability.id}>
             <h3>{liability.liabilityName}</h3>
-
-            <p>Category: {liability.category}</p>
-
-
-            <p>Total Amount: ₹{liability.totalAmount}</p>
-
-
-            <p>Remaining: ₹{liability.remainingAmount}</p>
-            <p>
-              Family Member:
-              {" "}
+            <span className="category-badge">{liability.category}</span>
+            <span className="total-amount">₹{liability.totalAmount}</span>
+            <span className="remaining-amount">₹{liability.remainingAmount}</span>
+            <div className="member-cell">
               {liability.familyMember.fullName}
-            </p>
-
-            <p>
-              Relation:
-              {" "}
-              {liability.familyMember.relation}
-            </p>
-
+              <span>{liability.familyMember.relation}</span>
+            </div>
           </div>
         ))
       )}
-
     </div>
   );
 }
