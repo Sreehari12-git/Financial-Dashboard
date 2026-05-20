@@ -121,7 +121,7 @@ function AddAssets({ onClose,  qonSuccess }) {
                 onChange={handleChange}
               >
                 <option value="">Select Category</option>
-                <option value="REAL_ESTATE">Real Estate</option>
+                <option value="REAL ESTATE">Real Estate</option>
                 <option value="LIQUID">Liquid</option>
                 <option value="INVESTMENT">Investment</option>
               </select>
