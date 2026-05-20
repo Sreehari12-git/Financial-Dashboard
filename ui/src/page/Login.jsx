@@ -2,10 +2,15 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css"
 import { useState } from "react";
 import { loginUser } from "../api/auth";
+import Register from "../components/Register";
 
 const Login = () => {
 
   const navigate = useNavigate();
+
+  const register = () => {
+    navigate("/register");
+  }
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
@@ -38,6 +43,7 @@ const Login = () => {
         <label>Password</label>
         <input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}/>
         <button type="submit" onClick={login}>Login</button>
+        <button type="submit" onClick={register}>Register</button>
       </div>
     </div>
   );

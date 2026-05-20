@@ -18,3 +18,21 @@ export const loginUser = async(email,password) => {
     }
 }
 
+
+export const registerUser = async(fullName, email,password) => {
+    try{
+        const response = await api.post("/register", {
+            fullName,
+            email,
+            password
+        });
+
+        return response.data;
+    }
+    catch(error) {
+        console.log(error);
+        throw new Error(
+            error.response?.data?.message || "Server error"
+        )
+    }
+}

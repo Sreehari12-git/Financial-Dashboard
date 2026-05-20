@@ -6,12 +6,14 @@ import FamilyTree from './page/FamilyTree'
 import Sidebar from './components/Sidebar'
 import WealthAssets from './page/WealthAssets'
 import Tax from './page/Tax'
+import Register from './components/Register'
 
 function App() {
   return (
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<Login/>}/>
+      <Route path='/register' element={<Register/>}/>
       <Route element = {<Sidebar/>}>
         <Route path='/family-tree' element={<FamilyTree/>}/>
         <Route path='/wealth-assets' element={<WealthAssets/>}/>
