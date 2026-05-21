@@ -6,6 +6,7 @@ import dashboardRoute from "./routes/dashboardRoute.js"
 import assetsRoute from "./routes/assetsRoute.js"
 import liabilityRoute from "./routes/liabilityRoute.js"
 import familyTreeRoutes from "./routes/familyTreeRoutes.js"
+import memberRoutes from "./routes/memberRoutes.js"
 import cors from "cors"
 dotenv.config();
 
@@ -27,8 +28,8 @@ app.use("/family-members", familyMembersRoutes)
 app.use('/dashboard', dashboardRoute )
 app.use("/assets", assetsRoute)
 app.use("/liability", liabilityRoute)
-
 app.use("/family",familyTreeRoutes)
+app.use("/member", memberRoutes)
 
 app.listen(PORT, () => {
     console.log(`Listening to port {PORT}`);
