@@ -36,7 +36,7 @@ export const getDashboardOverview = async(req,res) => {
             return sum + (item.remainingAmount || 0);
         },0)
 
-        const netWorth = totalAssets + totalIncome - totalLiabilities;
+        const netWorth = totalAssets  - totalLiabilities;
 
         return res.status(200).json({
             message: "Dashboard overview fetched successfully",

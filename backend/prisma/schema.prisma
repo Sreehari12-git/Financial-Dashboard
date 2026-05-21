@@ -67,3 +67,4 @@ model Liability {
 
   createdAt DateTime @default(now())
 }
+

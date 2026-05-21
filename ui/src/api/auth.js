@@ -12,27 +12,27 @@ export const loginUser = async(email,password) => {
     }
     catch(error) {
         console.log(error);
-        throw new Error(
-            error.response?.data?.message || "Server error"
-        )
+        throw error;
     }
 }
 
 
-export const registerUser = async(fullName, email,password) => {
+export const registerUser = async(fullName, email,password,age,occupation,annualIncome) => {
     try{
         const response = await api.post("/register", {
             fullName,
             email,
-            password
+            password,
+            age,
+            occupation,
+            annualIncome
         });
 
         return response.data;
     }
     catch(error) {
         console.log(error);
-        throw new Error(
-            error.response?.data?.message || "Server error"
-        )
+        throw error;
     }
 }
+

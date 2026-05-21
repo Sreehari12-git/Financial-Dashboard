@@ -54,7 +54,9 @@ export const loginUser = async(req,res) => {
 
 export const registerUser = async(req,res) => {
     try {
-    const {fullName,email,password} = req.body;
+    const { fullName, email, password, occupation } = req.body;
+    const age = parseInt(req.body.age);
+    const annualIncome = parseFloat(req.body.annualIncome);
 
     const existingUser = await prisma.user.findUnique({
         where: {
@@ -75,6 +77,18 @@ export const registerUser = async(req,res) => {
             fullName,
             email,
             password: hashedPassword
+        }
+    })
+
+    await prisma.familyMember.create({
+        data: {
+            fullName,
+            relation: "self",
+            age,
+            occupation,
+            annualIncome,
+            relatedToId: null,
+            userId: user.id
         }
     })
 
@@ -99,9 +113,8 @@ export const registerUser = async(req,res) => {
         },
     })
    } catch(error) {
-    res.status(500).json({
-        message : "Server error"
-    })
- }
+    console.log(error); 
+    res.status(500).json({ message: "Server error" })
+}
 }
 
