@@ -15,3 +15,4 @@ export const getAllocation = async() => {
     const response = await api.get("/assets/allocation");
     return response.data;
 }
+
