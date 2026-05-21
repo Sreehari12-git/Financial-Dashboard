@@ -77,3 +77,43 @@ export const createLiability = async(req,res) => {
     }
 }
 
+export const getLiabilityAllocation = async(req,res) => {
+    try {
+        const userId  = req.user.id;
+
+        const groupedLiabilities = await prisma.liability.groupBy({
+            by: ["category"],
+            where: {
+                familyMember: {
+                    userId: userId
+                }
+            },
+            _sum: {
+                remainingAmount: true
+            }
+        })
+
+        let total = 0;
+
+        groupedLiabilities.forEach(liability => {
+            total += liability._sum.remainingAmount;
+        })
+
+        const result = groupedLiabilities.map(liability => {
+            const value = liability._sum.remainingAmount;
+            const percentage = (value/total) * 100;
+            return {
+                category: liability.category,
+                totalValue: value,
+                percentage: percentage.toFixed(1)
+            }
+        })
+        res.json(result);
+    }catch(error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Server error"
+        })
+    }
+}
+

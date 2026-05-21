@@ -1,6 +1,7 @@
 import AssetAllocation from "../components/AssetAllocation"
 import AssetLedger from "../components/AssetLedger"
 import LiabilitiesList from "../components/LiabilitiesList"
+import LiabilityAllocation from "../components/LiabilityAllocation"
 
 const WealthAssets = () => {
     return (
@@ -17,6 +18,7 @@ const WealthAssets = () => {
   {/* Right column — chart centered vertically between both tables */}
   <div style={{ display: "flex", alignItems: "center", alignSelf: "stretch" }}>
     <AssetAllocation />
+    <LiabilityAllocation/>
   </div>
 
 </div>

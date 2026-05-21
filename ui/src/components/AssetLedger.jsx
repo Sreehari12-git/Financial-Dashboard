@@ -44,6 +44,7 @@ function AssetLedger() {
         <p>Category</p>
         <p>Valuation</p>
         <p>Net Yield</p>
+        <p>Member</p>
       </div>
 
       {assets.map((asset) => (
@@ -61,6 +62,10 @@ function AssetLedger() {
           </div>
           <div className="yield">
             {asset.annualYield || 0}%
+          </div>
+          <div className="member">
+            {asset.familyMember.fullName}
+            <span>{asset.familyMember.relation}</span>
           </div>
 
         </div>

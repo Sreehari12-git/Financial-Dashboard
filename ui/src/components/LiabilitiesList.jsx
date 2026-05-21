@@ -98,11 +98,12 @@ function LiabilitiesList() {
                 </div>
                 <div className="form-group">
                   <label>Category <span>*</span></label>
-                  <input
-                    placeholder="e.g. Loan, EMI"
-                    value={form.category}
-                    onChange={(e) => setForm({ ...form, category: e.target.value })}
-                  />
+                  <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}>
+                    <option value="">Select category</option>
+                    <option value="AUTO LOAN">AUTO LOAN</option>
+                    <option value="BANK LOAN">BANK LOAN</option>
+                    <option value= "CREDIT CARD">CREDIT CARD</option>
+                  </select>
                 </div>
               </div>
 
@@ -147,7 +148,7 @@ function LiabilitiesList() {
 
             <div className="modal-footer">
               <button className="btn-cancel" onClick={() => setShowModal(false)}>Cancel</button>
-              <button className="btn-submit" onClick={handleAddLiability}>Save Liability</button>
+              <button className="btn-submit" onClick={handleAddLiability}>Add Liability</button>
             </div>
           </div>
         </div>

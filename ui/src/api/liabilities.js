@@ -11,3 +11,8 @@ export const createLiabilities = async(form) => {
     return response.data;
 }
 
+export const liabilityAllocation = async() => {
+    const response = await api.get("/liability/allocation");
+    return response.data;
+}
+

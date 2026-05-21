@@ -185,7 +185,6 @@ const TreeBranch = ({ node, onSelect }) => {
 
   return (
     <>
-      {/* overlay */}
       <div
         onClick={onClose}
         style={{

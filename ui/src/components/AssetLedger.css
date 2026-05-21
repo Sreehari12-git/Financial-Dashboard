@@ -67,7 +67,7 @@
 /* Table Head */
 .ledger-table-head {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 0.6fr;
+  grid-template-columns: 2fr 1fr 1fr 0.6fr 1fr;
   padding: 8px 12px;
   background: #f7f3ee;
   border-radius: 8px;
@@ -86,7 +86,7 @@
 /* Asset Row */
 .ledger-row {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 0.6fr;
+  grid-template-columns: 2fr 1fr 1fr 0.6fr 1fr;
   align-items: center;
   padding: 10px 12px;
   border-bottom: 1px solid #f0ebe3;
@@ -163,4 +163,19 @@
   font-size: 13px;
   font-weight: 700;
   color: #2e7d32;
+}
+
+/* Member */
+.member {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1208;
+  display: flex;
+  flex-direction: column;
+}
+
+.member span {
+  font-size: 10px;
+  color: #9e8e76;
+  font-weight: 400;
 }
