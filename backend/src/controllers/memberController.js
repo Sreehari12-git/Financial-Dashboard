@@ -3,10 +3,11 @@ import prisma from "../config/prisma";
 export const getMemberDetails = async(req,res) => {
     try {
         const memberId = Number(req.params.id);
-
+        const userId = req.user.id;
         const member = await prisma.familyMember.findUnique({
             where: {
-                id: memberId
+                id: memberId,
+                userId: userId
             },
             include: {
                 assets: true,

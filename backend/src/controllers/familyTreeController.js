@@ -26,6 +26,7 @@ export const getFamilyTree = async (req, res) => {
    
   const buildTree = (parentId = null) => {
     return members.filter(member => member.relatedToId === parentId).map(member => ({
+      id:member.id,
       user: member.fullName,
       relation: member.relation,
       familyMember: buildTree(member.id)
@@ -33,6 +34,7 @@ export const getFamilyTree = async (req, res) => {
   }
 
   const familyTree = {
+    id: selfMember?.id,
     user: user.fullName,
     userId: user.id,
     familyMember: selfMember ? buildTree(selfMember.id) : []
