@@ -43,3 +43,4 @@ export const getFamilyTree = async (req, res) => {
   res.json(familyTree);
 };
 
+  

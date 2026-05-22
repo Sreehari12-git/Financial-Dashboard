@@ -1,10 +1,9 @@
-  import React, { useEffect, useState } from 'react';
-  import { getFamilyTree } from '../api/familyApi';
-  import { getMemberProfile } from '../api/profileApi';
+import React, { useEffect, useState } from 'react';
+import { getFamilyTree } from '../api/familyApi';
+import { getMemberProfile } from '../api/profileApi';
 
-  const MemberCard = ({ user, relation, onClick }) => {
-
-    const getColors = (rel) => {
+const MemberCard = ({ user, relation, onClick }) => {
+  const getColors = (rel) => {
       switch (rel) {
         case 'self':
           return {
@@ -116,7 +115,6 @@ const TreeBranch = ({ node, onSelect }) => {
           </div>
         ))}
 
-        {/* Vertical line going down from parent */}
         {children.length > 0 && (
           <div style={{
             position: 'absolute',
@@ -147,7 +145,6 @@ const TreeBranch = ({ node, onSelect }) => {
                   alignItems: 'center',
                 }}
               >
-                {/* Vertical drop to child */}
                 <div style={{
                   position: 'absolute',
                   top: '0',
@@ -158,7 +155,6 @@ const TreeBranch = ({ node, onSelect }) => {
                   backgroundColor: '#94a3b8',
                 }} />
 
-                {/* Horizontal bar connecting siblings */}
                 {children.length > 1 && (
                   <div style={{
                     position: 'absolute',
@@ -199,7 +195,6 @@ const TreeBranch = ({ node, onSelect }) => {
         }}
       />
 
-      {/* sidebar */}
       <div
         style={{
           position: 'fixed',
@@ -215,7 +210,6 @@ const TreeBranch = ({ node, onSelect }) => {
           fontFamily: 'sans-serif'
         }}
       >
-        {/* Close button */}
         <button
           onClick={onClose}
           style={{
@@ -238,7 +232,6 @@ const TreeBranch = ({ node, onSelect }) => {
           ✕
         </button>
 
-        {/* Avatar + Name */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px', marginTop: '8px' }}>
           <div style={{
             width: '56px',
@@ -274,10 +267,7 @@ const TreeBranch = ({ node, onSelect }) => {
           </div>
         </div>
 
-        {/* Divider */}
         <div style={{ height: '1px', background: '#e2e8f0', marginBottom: '20px' }} />
-
-        {/* Info row */}
         <div style={{
           background: '#f8fafc',
           borderRadius: '10px',
@@ -293,7 +283,6 @@ const TreeBranch = ({ node, onSelect }) => {
           <span><strong>Occupation:</strong> {member.occupation}</span>
         </div>
 
-        {/* Assets */}
         <div style={{ marginBottom: '24px' }}>
           <h3 style={{
             fontSize: '13px',
@@ -327,7 +316,6 @@ const TreeBranch = ({ node, onSelect }) => {
           )}
         </div>
 
-        {/* Liabilities */}
         <div>
           <h3 style={{
             fontSize: '13px',
@@ -366,55 +354,32 @@ const TreeBranch = ({ node, onSelect }) => {
 };
 
   function FamilyTreeGraph() {
-
     const [familyData, setFamilyData] = useState(null);
-
-    const [selectedMember, setSelectedMember] =
-      useState(null);
-
+    const [selectedMember, setSelectedMember] = useState(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-    const [error, setError] =
-      useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
       fetchFamilyTree();
     }, []);
 
     const fetchFamilyTree = async () => {
-
       try {
-
-        const data =
-          await getFamilyTree();
-
+        const data = await getFamilyTree();
         setFamilyData(data);
-
       } catch (err) {
-
         console.log(err);
-
-        setError(
-          "Failed to load family tree"
-        );
+        setError("Failed to load family tree");
       }
     };
-
+    
     const openMember = async (id) => {
-
       try {
-
-        const data =
-          await getMemberProfile(id);
-
+        const data = await getMemberProfile(id);
         setSelectedMember(data);
-
         setIsSidebarOpen(true);
-
       } catch (error) {
-
         console.log(error);
-
       }
     };
 
