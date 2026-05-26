@@ -4,18 +4,12 @@ dotenv.config();
 
 export const authMiddleware = (req,res,next) => {
     try {
-        const authHeader = req.headers.authorization;
+        const token = req.cookies.token;
 
-        if(!authHeader) {
+        if(!token) {
             return res.status(401).json({message:"No token provided"});
         }
-
-        const token = authHeader.split(" ")[1];
         
-        if(!token) {
-            return res.status(401).json({message : "Invalid token format"});
-        }
-
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
         next();
@@ -23,3 +17,4 @@ export const authMiddleware = (req,res,next) => {
         return res.status(401).json({message: "Unauthorized"});
     }
 }
+

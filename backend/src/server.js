@@ -9,6 +9,7 @@ import familyTreeRoutes from "./routes/familyTreeRoutes.js"
 import memberRoutes from "./routes/memberRoutes.js"
 import cors from "cors"
 dotenv.config();
+import cookieParser from "cookie-parser"
 
 const app = express()
 
@@ -22,6 +23,7 @@ app.use(cors({
 const PORT = process.env.PORT
 
 app.use(express.json())
+app.use(cookieParser())
 
 app.use("/", authRoutes)
 app.use("/family-members", familyMembersRoutes)
@@ -32,5 +34,7 @@ app.use("/family",familyTreeRoutes)
 app.use("/member", memberRoutes)
 
 app.listen(PORT, () => {
-    console.log(`Listening to port {PORT}`);
+    console.log(`Listening to port ${PORT}`);
 })
+
+

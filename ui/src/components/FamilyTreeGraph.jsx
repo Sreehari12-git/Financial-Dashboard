@@ -281,6 +281,7 @@ const TreeBranch = ({ node, onSelect }) => {
         }}>
           <span style={{ fontSize: '18px' }}>💼</span>
           <span><strong>Occupation:</strong> {member.occupation}</span>
+          <span><strong>Annual Income:</strong>{member.annualIncome}</span>
         </div>
 
         <div style={{ marginBottom: '24px' }}>

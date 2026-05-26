@@ -36,3 +36,7 @@ export const registerUser = async(fullName, email,password,age,occupation,annual
     }
 }
 
+export const logout = async() => {
+    return await api.post("/logout");
+}
+

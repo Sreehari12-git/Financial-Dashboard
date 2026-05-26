@@ -1,12 +1,18 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
+import { logout } from "../api/auth";
 
 const Sidebar = () => {
     const navigate = useNavigate();
 
-    const logout = () => {
-      localStorage.clear();
+    const handleLogout = async() => {
+      try{
+        await logout();
         navigate("/");
+      }
+      catch(error) {
+        console.log(error);
+      }
     }
 
   return (
@@ -18,12 +24,11 @@ const Sidebar = () => {
         <nav className="sidebar-nav">
           <NavLink to="/family-tree">Family Tree</NavLink>
           <NavLink to="/wealth-assets">Wealth & Assets</NavLink>
-          <NavLink to="/tax">Tax Intelligence</NavLink>
         </nav>
 
         <div className="sidebar-bottom">
           <hr className="sidebar-divider" />
-          <button onClick={logout}>
+          <button onClick={handleLogout}>
             <i className="ti ti-logout" aria-hidden="true"></i>
             Logout
           </button>

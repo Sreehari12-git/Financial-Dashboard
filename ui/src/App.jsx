@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import FamilyTree from './page/FamilyTree'
 import Sidebar from './components/Sidebar'
 import WealthAssets from './page/WealthAssets'
-import Tax from './page/Tax'
 import Register from './components/Register'
 import { ProtectedRoute } from './components/ProtectedRoute'
 
@@ -19,7 +18,6 @@ function App() {
       <Route element = {<Sidebar/>}>
         <Route path='/family-tree' element={<FamilyTree/>}/>
         <Route path='/wealth-assets' element={<WealthAssets/>}/>
-        <Route path='/tax' element={<Tax/>}/>
       </Route>
       </Route>
     </Routes>

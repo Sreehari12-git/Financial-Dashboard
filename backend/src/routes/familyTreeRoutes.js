@@ -7,3 +7,4 @@ const router = Router()
 router.get("/family-tree",authMiddleware, getFamilyTree);
 
 export default router
+

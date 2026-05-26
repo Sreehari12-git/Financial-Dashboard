@@ -17,16 +17,11 @@ function AddAssets({ onClose,  onSuccess }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-
-
   function handleChange(e) {
     const name = e.target.name;
     const value = e.target.value;
 
-    setForm({
-      ...form,
-      [name]: value,
-    });
+    setForm({...form,[name]: value});
   }
 
 
@@ -45,19 +40,13 @@ function AddAssets({ onClose,  onSuccess }) {
       setError("Please fill all required fields");
       return;
     }
-
     try {
-
       setLoading(true);
-
       await createAssets(form);
-
       if (onSuccess) {
         onSuccess();
       }
-
       onClose();
-
     } catch (error) {
 
       if (error.response && error.response.data.message) {
@@ -65,7 +54,6 @@ function AddAssets({ onClose,  onSuccess }) {
       } else {
         setError("Failed to create asset");
       }
-
     } finally {
       setLoading(false);
     }
@@ -246,3 +234,4 @@ function AddAssets({ onClose,  onSuccess }) {
 }
 
 export default AddAssets;
+

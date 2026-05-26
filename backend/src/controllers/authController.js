@@ -6,6 +6,8 @@ export const loginUser = async(req,res) => {
 
     try {
         const {email,password} = req.body;
+
+
         const user = await prisma.user.findUnique({
             where: {
                 email
@@ -31,11 +33,19 @@ export const loginUser = async(req,res) => {
                 id: user.id
             },
             process.env.JWT_SECRET,
+            {
+                expiresIn: "10d"
+            }
         );
+
+        res.cookie("token", token, {
+            httpOnly: false,
+            secure: false,
+            maxAge: 10 * 24 * 60 * 60 * 1000
+        });
 
         res.status(200).json({
             message: "Login successful",
-            token,
             user: {
                 id: user.id,
                 fullName: user.fullName,
@@ -86,19 +96,9 @@ export const registerUser = async(req,res) => {
             userId: user.id
         }
     })
-    const token = jwt.sign(
-        {
-            id: user.id,
-            email: user.email,
-        },
-        process.env.JWT_SECRET,
-        {
-            expiresIn: "7d"
-        }
-    )
+
     res.status(201).json({
         message: "User registered successfully",
-        token,
         user: {
             id: user.id,
             fullName: user.fullName,

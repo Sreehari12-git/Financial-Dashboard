@@ -17,12 +17,7 @@ const Login = () => {
 
   const login = async() => {
     try {
-      const data = await loginUser(email,password);
-
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("email", data.user.email);
-      localStorage.setItem("username", data.user.fullName);
-
+      await loginUser(email,password);
       navigate("/family-tree");
 
     }
